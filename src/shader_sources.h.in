@@ -1,0 +1,4 @@
+static const char vertex_source[] = @VERTEX_SHADER@;
+static const char drive_source[] = @DRIVE_SHADER@;
+static const char bloom_source[] = @BLOOM_SHADER@;
+static const char panel_source[] = @PANEL_SHADER@;
