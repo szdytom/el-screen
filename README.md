@@ -4,11 +4,19 @@
 
 An amber electroluminescent display demo with a native 320×240 dot matrix, row-by-row redraws, optical bloom, and an alternate filmed look with a drifting band and a short dark afterimage.
 
-![Morrow EL-320 的琥珀色示波器与机壳按钮](media/scope.webp)
+## 效果预览
 
-**[观看演示视频（MP4）](media/demo.mp4?raw=1)** · [查看暗带模式截图](media/rolling.webp)
+| Soft Glow | Rolling Band |
+| :---: | :---: |
+| ![Soft Glow 的深色底与示波器光晕](media/scope.webp) | ![Rolling Band 的琥珀底色、暗带与日志页残像](media/rolling.webp) |
+
+### 演示视频
+
+https://github.com/user-attachments/assets/818261cc-0c06-481b-a25c-d37c01abc466
 
 视频先展示深色底的 Soft Glow，再点击 `C MODE` 切到琥珀底色的 Rolling Band。两种模式都用柔和的光晕让相邻亮点连成笔画。切到日志页后，旧字形和曲线会在底色上留下暗影，约三秒内淡去。
+
+[下载 MP4](media/demo.mp4?raw=1)
 
 ## 构建和运行
 
