@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="680" viewBox="0 0 1280 680" role="img" aria-labelledby="title desc">
+  <title id="title">RGBA 历史纹理与像素响应</title>
+  <desc id="desc">R通道保持目标驱动，G通道保存熄灭短尾，B通道保存点亮时的上升亏欠，A通道限速积累并缓慢释放曝光记忆。右侧曲线展示一次点亮和熄灭后的通道变化。</desc>
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#17191d"/><stop offset="1" stop-color="#101214"/></linearGradient>
+    <style>
+      text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif;fill:#eee9df}
+      .title{font-size:30px;font-weight:600}.label{font-size:18px;font-weight:600}.body{font-size:15px}.small{font-size:13px}.muted{fill:#aaa79f}.faint{fill:#797c7f}
+      .card{fill:#202328;stroke:#3b3e43;stroke-width:1.5}.axis{stroke:#666a6e;stroke-width:1.5}.grid{stroke:#33373b;stroke-width:1}
+    </style>
+  </defs>
+  <rect width="1280" height="680" fill="url(#bg)"/>
+  <text x="48" y="55" class="title">一个像素的历史，装进四个 8 位通道</text>
+  <text x="48" y="84" class="body muted">右侧为一次点亮与熄灭的示意曲线；通道数值和释放速度未按实际时间比例绘制</text>
+
+  <rect x="48" y="116" width="430" height="470" rx="16" class="card"/>
+  <text x="74" y="153" class="label">state = vec4(held, tail, attack, memory)</text>
+  <rect x="74" y="180" width="378" height="78" rx="10" fill="#282327" stroke="#7f555d"/>
+  <rect x="74" y="196" width="42" height="42" rx="8" fill="#db7c86"/><text x="95" y="225" text-anchor="middle" class="label" fill="#17191d">R</text>
+  <text x="132" y="207" class="label">held · 目标驱动</text><text x="132" y="233" class="small muted">最近一次行寻址后保持的灰度</text>
+  <rect x="74" y="272" width="378" height="78" rx="10" fill="#242825" stroke="#587762"/>
+  <rect x="74" y="288" width="42" height="42" rx="8" fill="#7dbb8c"/><text x="95" y="317" text-anchor="middle" class="label" fill="#17191d">G</text>
+  <text x="132" y="299" class="label">tail · 熄灭短尾</text><text x="132" y="325" class="small muted">由亮度落差触发，按 PIXEL_FALL 衰减</text>
+  <rect x="74" y="364" width="378" height="78" rx="10" fill="#22272b" stroke="#4e7184"/>
+  <rect x="74" y="380" width="42" height="42" rx="8" fill="#75b5d2"/><text x="95" y="409" text-anchor="middle" class="label" fill="#17191d">B</text>
+  <text x="132" y="391" class="label">attack · 上升亏欠</text><text x="132" y="417" class="small muted">点亮时先记录落差，按 PIXEL_RISE 衰减</text>
+  <rect x="74" y="456" width="378" height="78" rx="10" fill="#292720" stroke="#8a7449"/>
+  <rect x="74" y="472" width="42" height="42" rx="8" fill="#e3b867"/><text x="95" y="501" text-anchor="middle" class="label" fill="#17191d">A</text>
+  <text x="132" y="483" class="label">memory · 曝光记忆</text><text x="132" y="509" class="small muted">向 held 限速靠拢，用于暗色残像</text>
+  <text x="74" y="561" class="small faint">两张纹理交替读写，历史才能跨帧保留。</text>
+
+  <rect x="510" y="116" width="722" height="470" rx="16" class="card"/>
+  <text x="538" y="153" class="label">通道响应（示意）</text>
+  <g>
+    <path d="M578 194H1188M578 274H1188M578 354H1188M578 434H1188" class="grid"/>
+    <path d="M578 184V474H1194" class="axis"/>
+    <text x="552" y="198" class="small muted">1</text><text x="552" y="478" class="small muted">0</text>
+    <text x="1192" y="500" text-anchor="end" class="small muted">时间 →</text>
+    <path d="M720 184V474M986 184V474" stroke="#69665f" stroke-dasharray="5 6"/>
+    <text x="720" y="205" text-anchor="middle" class="small amber">点亮</text><text x="986" y="205" text-anchor="middle" class="small amber">熄灭</text>
+    <path d="M580 434H720V234H986V434H1190" fill="none" stroke="#db7c86" stroke-width="3"/>
+    <path d="M580 434H720V234C748 244 756 390 790 434H1190" fill="none" stroke="#75b5d2" stroke-width="3"/>
+    <path d="M580 434H986V344C1010 350 1050 420 1090 434H1190" fill="none" stroke="#7dbb8c" stroke-width="3"/>
+    <path d="M580 434H720C790 430 850 340 906 292C938 265 962 254 986 254C1040 256 1080 344 1130 402C1150 423 1170 431 1190 434" fill="none" stroke="#e3b867" stroke-width="3"/>
+    <rect x="856" y="172" width="26" height="5" fill="#db7c86"/><text x="890" y="179" class="small muted">R</text>
+    <rect x="924" y="172" width="26" height="5" fill="#7dbb8c"/><text x="958" y="179" class="small muted">G</text>
+    <rect x="992" y="172" width="26" height="5" fill="#75b5d2"/><text x="1026" y="179" class="small muted">B</text>
+    <rect x="1060" y="172" width="26" height="5" fill="#e3b867"/><text x="1094" y="179" class="small muted">A</text>
+  </g>
+  <rect x="538" y="514" width="666" height="46" rx="9" fill="#191c1f"/>
+  <text x="558" y="543" class="body">发光量：<tspan fill="#ffbd62">emission = clamp(R + G − B, 0, 1)</tspan></text>
+
+  <rect x="48" y="612" width="1184" height="42" rx="10" fill="#1c1f23" stroke="#34383d"/>
+  <text x="72" y="639" class="body muted">熄灭后，<tspan fill="#e3b867">retained = max(A − R, 0)</tspan> 暂存曝光差；Rolling Band 用它压暗琥珀色底场。</text>
+</svg>

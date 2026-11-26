@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="620" viewBox="0 0 1280 620" role="img" aria-labelledby="title desc">
+  <title id="title">上电与逐行重绘时间线</title>
+  <desc id="desc">上电在68毫秒延迟后以115毫秒扫过全屏。重绘的清除扫描为92毫秒，写入在43毫秒延迟后以122毫秒扫过全屏，两段可以重叠。状态至少保留到220毫秒并多等一个面板周期。</desc>
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#17191d"/><stop offset="1" stop-color="#101214"/></linearGradient>
+    <linearGradient id="sweep" x2="1" y2="0"><stop stop-color="#8bc6d9"/><stop offset="1" stop-color="#ffbd62"/></linearGradient>
+    <style>
+      text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif;fill:#eee9df}
+      .title{font-size:30px;font-weight:600}.label{font-size:18px;font-weight:600}.body{font-size:15px}.small{font-size:13px}.muted{fill:#aaa79f}.faint{fill:#797c7f}.amber{fill:#ffbd62}.blue{fill:#8bc6d9}
+      .card{fill:#202328;stroke:#3b3e43;stroke-width:1.5}.tick{stroke:#3c4044;stroke-width:1}.formula{font-family:monospace;font-size:14px;fill:#c8c5bd}
+    </style>
+  </defs>
+  <rect width="1280" height="620" fill="url(#bg)"/>
+  <text x="48" y="55" class="title">上电与重绘：同一套行脉冲，不同的时间表</text>
+  <text x="48" y="84" class="body muted">横轴是整屏事件窗口；每一行仍要等待自己的寻址脉冲，才执行对应的清除或写入</text>
+
+  <g>
+    <path d="M160 118V514M370 118V514M580 118V514M790 118V514M1000 118V514M1168 118V514" class="tick"/>
+    <text x="160" y="108" text-anchor="middle" class="small muted">0</text><text x="370" y="108" text-anchor="middle" class="small muted">50</text>
+    <text x="580" y="108" text-anchor="middle" class="small muted">100</text><text x="790" y="108" text-anchor="middle" class="small muted">150</text>
+    <text x="1000" y="108" text-anchor="middle" class="small muted">200</text><text x="1168" y="108" text-anchor="middle" class="small muted">240 ms</text>
+  </g>
+
+  <rect x="48" y="136" width="1184" height="174" rx="16" class="card"/>
+  <text x="74" y="174" class="label">WAKE · 上电</text>
+  <text x="74" y="200" class="small muted">先等待，再逐行接收当前页面</text>
+  <rect x="160" y="224" width="286" height="30" rx="6" fill="#30343a"/>
+  <text x="303" y="245" text-anchor="middle" class="small muted">WAKE_DELAY · 68 ms</text>
+  <rect x="446" y="224" width="483" height="30" rx="6" fill="url(#sweep)" opacity=".9"/>
+  <text x="687" y="245" text-anchor="middle" class="small" fill="#17191d">WAKE_SWEEP · 115 ms</text>
+  <rect x="929" y="224" width="155" height="30" rx="6" fill="#493c2c"/>
+  <text x="1006" y="245" text-anchor="middle" class="small amber">等待稳定</text>
+  <rect x="1084" y="224" width="59" height="30" rx="6" fill="#31434a"/>
+  <text x="1113" y="278" text-anchor="middle" class="small blue">+ 1 周期</text>
+  <text x="160" y="288" class="formula">atPulse ≥ WAKE_DELAY + row × WAKE_SWEEP → held = video</text>
+
+  <rect x="48" y="332" width="1184" height="204" rx="16" class="card"/>
+  <text x="74" y="370" class="label">REWRITE · 清除并写入</text>
+  <text x="74" y="396" class="small muted">两段扫描可以重叠，但每行先清除、后写入</text>
+  <rect x="160" y="414" width="386" height="30" rx="6" fill="#49636d"/>
+  <text x="353" y="435" text-anchor="middle" class="small">CLEAR_SWEEP · 92 ms</text>
+  <rect x="341" y="458" width="512" height="30" rx="6" fill="#b77b3e"/>
+  <text x="597" y="479" text-anchor="middle" class="small" fill="#17191d">WRITE_DELAY + WRITE_SWEEP · 43 → 165 ms</text>
+  <rect x="853" y="458" width="231" height="30" rx="6" fill="#493c2c"/>
+  <text x="968" y="479" text-anchor="middle" class="small amber">保留至 TRANSITION_SETTLE</text>
+  <rect x="1084" y="458" width="59" height="30" rx="6" fill="#31434a"/>
+  <text x="1113" y="512" text-anchor="middle" class="small blue">+ 1 周期</text>
+  <text x="160" y="516" class="formula">clear: row × CLEAR_SWEEP</text>
+  <text x="548" y="516" class="formula">write: WRITE_DELAY + row × WRITE_SWEEP</text>
+
+  <text x="48" y="580" class="body muted">默认时间常数下，两种状态都在约 234 ms 后回到 STEADY；慢放会等比例拉长这段演示时间。</text>
+</svg>
