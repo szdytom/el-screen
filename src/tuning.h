@@ -92,11 +92,11 @@
 #define BLOOM_NEAR_SIGMA 0.90
 #define BLOOM_WIDE_SIGMA 2.20
 #define DARK_FIELD_SOFTEN 0.79
-#define ROLLING_FIELD_SOFTEN 0.17
+#define ROLLING_FIELD_SOFTEN 0.84
 #define DARK_FIELD_BLOOM_NEAR 0.255
 #define DARK_FIELD_BLOOM_WIDE 0.112
-#define ROLLING_FIELD_BLOOM_NEAR 0.180
-#define ROLLING_FIELD_BLOOM_WIDE 0.075
+#define ROLLING_FIELD_BLOOM_NEAR 0.300
+#define ROLLING_FIELD_BLOOM_WIDE 0.135
 
 /* Apparent sweep for the filmed look, in fractions of the picture height. */
 #define BAND_PERIOD 14.4

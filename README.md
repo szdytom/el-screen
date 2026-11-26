@@ -8,7 +8,7 @@ An amber electroluminescent display demo with a native 320×240 dot matrix, row-
 
 **[观看演示视频（MP4）](media/demo.mp4?raw=1)** · [查看暗带模式截图](media/rolling.webp)
 
-视频先展示默认柔光模式，再点击 `C MODE` 切换到琥珀底色。在暗带模式下切到日志页，能看到原来亮着的字形和曲线在底色上留下暗影，约三秒内淡去。
+视频先展示深色底的 Soft Glow，再点击 `C MODE` 切到琥珀底色的 Rolling Band。两种模式都用柔和的光晕让相邻亮点连成笔画。切到日志页后，旧字形和曲线会在底色上留下暗影，约三秒内淡去。
 
 ## 构建和运行
 
@@ -28,7 +28,7 @@ cmake --build build
 | `Tab` / `Shift+Tab` | 向前 / 向后循环切页 |
 | `R` | 清除并逐行重绘当前页 |
 | `S` | 慢放至 15% |
-| `C` | 切换柔光模式和琥珀底色的暗带模式 |
+| `C` | 切换 Soft Glow 和 Rolling Band |
 | `P` | 开关面板电源 |
 | `B` | 开关加强光晕 |
 | `Space` | 暂停页面内容 |
